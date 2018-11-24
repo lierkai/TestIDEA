@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>angularjs入门程序-遍历数组对象</title>
+    <script src="angular.min.js"></script>
+    <script type="text/javascript">
+        // 1、首先定义模块  arg0:定义的模块名称  arg1：引入其他的模块
+        var app = angular.module('myApp', []);	// 创建了工程
+        // 2、再定义控制器
+        app.controller('myController', function($scope,$http){  // 创建controller
+            // 通过http请求服务器端的数据
+            $scope.findAll = function () {
+                $http.get('/data.json').success(function (response) {
+                    $scope.list = response;
+                })
+                
+            }
+
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController"ng-init="findAll();">
+<table>
+    <tr ng-repeat="entity in list">
+        <td>{{entity.name}}</td>
+        <td>{{entity.age}}</td>
+    </tr>
+</table>
+</body>
+</html>
